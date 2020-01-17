@@ -1,7 +1,10 @@
 agentname: master
-giturl:
- path: https://github.com/dhivyakiran/portal.git
- branch: development
-sonarqube:
- url: 
+microservice1:
+ path: https://github.com/dhivyakiran/helloworld-nodejs.git
+ branch: master
+microservice2:
+ path: https://github.com/dhivyakiran/nodejs1.git
+ branch: master
+
+
 
