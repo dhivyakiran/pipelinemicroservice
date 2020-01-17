@@ -22,15 +22,6 @@ stages
         {
            script 
             {
-               def filelist = getChangedFilesList()
-               def filename = filelist.find{item->item.contains("yml")}
-               echo "${filelist}"
-               /*def filevalue=filename.split(/\./)
-               if((filename == "dev.yml" || filename == "int.yml" || filename == "qa.yml"))
-               {
-                 build job: 'angular-pipeline',  parameters: [[$class: 'StringParameterValue', name: 'envname', value: ${filevalue[0]}]], wait: true    
-               }
-               
                 if(envname=="dev" || envname=="int")
                 {
                   pipelinetype = "build_deploy"
@@ -42,23 +33,21 @@ stages
                 else
                 {
                   pipelinetype = "build"
-                }*/
+                }
                //echo "Build url:${currentBuild.absoluteUrl}}"
              }
          }
      }
     stage("Source code checkout") 
     {
-        //when {expression{(pipelinetype != "deploy")}}
+        when {expression{(pipelinetype != "deploy")}}
         steps 
         {
             script
               {
                git branch: mydatas.microservice1.branch, url: mydatas.microservice1.path
                appdata1 = readYaml file: envname+".yml"
-               
-               git branch: mydatas.microservice2.branch, url: mydatas.microservice2.path
-               appdata2 = readYaml file: envname+".yml"
+   
               }
            }
         }
