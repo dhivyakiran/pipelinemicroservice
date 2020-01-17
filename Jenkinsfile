@@ -9,11 +9,11 @@ agent
 {
    label "master"
 }
-/*environment 
+environment 
 {
    envname="${params.envname}"
 
-}*/
+}
 stages 
 {
    stage('Environment Initialization') 
@@ -49,11 +49,9 @@ stages
                appdata1 = readYaml file: envname+".yml"
    
               }
-           }
-        }
+         }
     }
-}
-   /* stage('Download Dependencies')
+    stage('Download Dependencies')
     {
         when {expression{(pipelinetype != "deploy")}}
         steps 
@@ -124,7 +122,8 @@ stages
            sh 'docker build -t hellonodejs1:latest .'
         }
      }
-   }
+   }*/
+}
    post 
    {
       always 
@@ -133,7 +132,7 @@ stages
       }
    }
 }
-*/
+
 def getChangedFilesList() {
        changedFiles = []
        for (changeLogSet in currentBuild.changeSets) { 
