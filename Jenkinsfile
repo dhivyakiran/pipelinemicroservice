@@ -7,7 +7,7 @@ pipeline
 {
 agent
 {
-   label "slave1"
+   label "master"
 }
 environment 
 {
