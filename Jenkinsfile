@@ -1,13 +1,13 @@
 node 
 {
-   git url: 'https://github.com/dhivyakiran/pipelinemicroservice.git'
+   git branch: 'development', url: 'https://github.com/dhivyakiran/pipelinemicroservice.git'
    mydatas = readYaml file: "pipeline.yml"
 }
 pipeline 
 {
 agent
 {
-   label "master"
+   label "slave1"
 }
 environment 
 {
@@ -45,6 +45,7 @@ stages
         {
             script
               {
+               deleteDir()
                git branch: mydatas.microservice1.branch, url: mydatas.microservice1.path
                appdata1 = readYaml file: envname+".yml"
    
@@ -56,13 +57,10 @@ stages
         when {expression{(pipelinetype != "deploy")}}
         steps 
         {
-            nodejs(nodeJSInstallationName: 'NodeJS')
-            {
             sh 'npm install'
-            }
         }
     }
-    stage("TS Linting") 
+   /* stage("TS Linting") 
     {
         when {expression{(pipelinetype != "deploy")}}
         steps 
@@ -78,24 +76,26 @@ stages
             echo "Execute unit tests"
         }
     }
-    /*stage("Sonar Code Coverage") 
+    stage("Sonar Code Coverage") 
     {
         when {expression{(pipelinetype != "deploy")}}
         steps 
         {
             echo "code coverage"
         }
-    }
+    }*/
     stage("SonarQube code analysis") 
     {
         when {expression{(pipelinetype != "deploy")}}
-          //environment { scannerHome = tool 'SonarQubeScanner' }
-        steps {
-           //withSonarQubeEnv('sonarqube') { bat "${scannerHome}/bin/sonar-scanner"}
-          bat "sonar-scanner -X"
+        steps 
+	     {
+           withSonarQubeEnv('sonarqube') 
+           { 
+             sh "/opt/Jenkins/sonar-scanner-4.2.0.1873/bin/sonar-scanner"
+	        }
         }
      }
-     stage("SonarQube Quality Gate") 
+    /* stage("SonarQube Quality Gate") 
      {
         when {expression{(pipelinetype != "deploy")}}
         steps 
@@ -105,8 +105,8 @@ stages
                waitForQualityGate abortPipeline: true
             }
         }
-     }*/
-    /* stage("Security scan") 
+     }
+     stage("Security scan") 
      {
         when {expression{(pipelinetype != "deploy")}}
         steps 
@@ -124,12 +124,12 @@ stages
      }
    }*/
 }
-   post 
+  /* post 
    {
       always 
       {
          emailext attachLog: true, body: "${currentBuild.result}: ${currentBuild.absoluteUrl}", compressLog: true, replyTo: 'dhivya.krish15@gmail.com', subject: "${currentBuild.result} pipeline: ${currentBuild.fullDisplayName}", to: 'dhivyakrish1491@gmail.com'
       }
    }
-}
+}*/
 
