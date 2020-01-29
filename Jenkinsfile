@@ -1,5 +1,6 @@
 node 
 {
+   deleteDir()
    git branch: 'development', url: 'https://github.com/dhivyakiran/pipelinemicroservice.git'
    mydatas = readYaml file: "pipeline.yml"
 }
@@ -16,17 +17,17 @@ environment
 }
 stages 
 {
-   stage('Environment Initialization') 
+   stage('Initialization') 
     {
         steps 
         {
            script 
             {
-                if(envname=="dev" || envname=="int")
+                if(envname=="dev" )
                 {
                   pipelinetype = "build_deploy"
                 }
-                else if(envname=="uat" || envname=="qa" || envname=="prod")
+                else if(envname=="int" || envname=="uat" || envname=="qa" || envname=="prod")
                 {
                   pipelinetype = "deploy"
                 }
@@ -43,13 +44,16 @@ stages
         when {expression{(pipelinetype != "deploy")}}
         steps 
         {
-            script
+            dir('service'){
+			script
               {
                deleteDir()
                git branch: mydatas.microservice1.branch, url: mydatas.microservice1.path
                appdata1 = readYaml file: envname+".yml"
+			   sh "cp -R /opt/Jenkins/code/cms-micorservices/* ."
    
               }
+			}  
          }
     }
     stage('Download Dependencies')
@@ -57,7 +61,9 @@ stages
         when {expression{(pipelinetype != "deploy")}}
         steps 
         {
-            sh 'npm install'
+            dir('service'){
+			sh 'npm install'
+			}
         }
     }
    /* stage("TS Linting") 
@@ -76,7 +82,7 @@ stages
             echo "Execute unit tests"
         }
     }
-    stage("Sonar Code Coverage") 
+    stage("Code Coverage") 
     {
         when {expression{(pipelinetype != "deploy")}}
         steps 
@@ -84,18 +90,19 @@ stages
             echo "code coverage"
         }
     }*/
-    stage("SonarQube code analysis") 
+    stage("SonarQube Code Analysis") 
     {
         when {expression{(pipelinetype != "deploy")}}
         steps 
 	     {
            withSonarQubeEnv('sonarqube') 
            { 
+		   
              sh "/opt/Jenkins/sonar-scanner-4.2.0.1873/bin/sonar-scanner"
 	        }
         }
      }
-    /* stage("SonarQube Quality Gate") 
+     stage("SonarQube Quality Gate") 
      {
         when {expression{(pipelinetype != "deploy")}}
         steps 
