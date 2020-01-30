@@ -8,7 +8,7 @@ pipeline
 {
 agent
 {
-   label "${mydatas.agentname}"
+   label "slave1"
 }
 environment 
 {
