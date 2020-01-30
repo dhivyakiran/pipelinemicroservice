@@ -99,7 +99,7 @@ stages
            withSonarQubeEnv('sonarqube') 
            { 
 		   
-             sh "cp sonar-${servicename}.properties sonar-project.properties
+             sh "cp sonar-${servicename}.properties sonar-project.properties"
 			 sh "/opt/Jenkins/sonar-scanner-4.2.0.1873/bin/sonar-scanner"
 	        }
         }
