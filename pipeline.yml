@@ -6,8 +6,9 @@ branch: development
 test: true
 sonar: true
 checkmarx: true
-ecrname: salesportal
-
-
-
-
+ecrregistry:
+ non-prod: '450343572378'
+ prod: '450343572378' 
+ecrrepo:
+ non-prod: 450343572378.dkr.ecr.us-east-1.amazonaws.com/salesportal-repo
+ prod: 450343572378.dkr.ecr.us-east-1.amazonaws.com/salesportal-repo
