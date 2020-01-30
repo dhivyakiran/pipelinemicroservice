@@ -49,7 +49,7 @@ stages
 			script
               {
                deleteDir()
-               git branch: mydatas.branch, url: mydatas.giturl.${servicename}
+               git branch: mydatas.branch, url: mydatas.giturl.cmsservice
                appdata = readYaml file: envname+".yml"
 			   sh "cp -R /opt/Jenkins/code/${servicename}/* ."
    
