@@ -93,7 +93,7 @@ stages
     }*/
     stage("SonarQube Code Analysis") 
     {
-        when {expression{(pipelinetype != "deploy") && (mydatas.sonar == "true")}}
+        when {expression{(pipelinetype != "deploy") && (mydatas.sonar == true)}}
         steps 
 	     {
            dir('service'){
@@ -108,7 +108,7 @@ stages
      }
      stage("SonarQube Quality Gate") 
      {
-        when {expression{(pipelinetype != "deploy") && (mydatas.sonar == "true")}}
+        when {expression{(pipelinetype != "deploy") && (mydatas.sonar == true)}}
         steps 
         {
 			dir('service'){
