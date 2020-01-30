@@ -51,7 +51,7 @@ stages
                deleteDir()
                git branch: mydatas.branch, url: mydatas.giturl.cmsservice
                appdata = readYaml file: envname+".yml"
-			   sh "cp -R /home/jenkins/${servicename}/* ."
+			   sh "cp -R /home/jenkins/cms-micorservices/* ."
    
               }
 			}  
