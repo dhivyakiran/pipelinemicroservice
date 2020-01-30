@@ -1,10 +1,17 @@
 agentname: master
-microservice1:
- path: https://github.com/dhivyakiran/nodejs1.git
- branch: development
-microservice2:
- path: https://github.com/dhivyakiran/helloworld-nodejs.git
- branch: master
+giturl:
+ cmsservice: https://github.com/dhivyakiran/nodejs1.git
+ eisservice: https://github.com/dhivyakiran/nodejs1.git
+branch: development
+nexus:
+ nexusUrl: 10.250.12.151:8081
+ nexusVersion: nexus3
+ protocol: http
+ repository: portal
+test: true
+sonar: true
+ecrname: salesportal
+
 
 
 

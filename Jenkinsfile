@@ -8,11 +8,12 @@ pipeline
 {
 agent
 {
-   label "master"
+   label "${mydatas.agentname}"
 }
 environment 
 {
    envname="${params.envname}"
+   servicename="${params.servicename}"
 
 }
 stages 
@@ -48,9 +49,9 @@ stages
 			script
               {
                deleteDir()
-               git branch: mydatas.microservice1.branch, url: mydatas.microservice1.path
-               appdata1 = readYaml file: envname+".yml"
-			   sh "cp -R /opt/Jenkins/code/cms-micorservices/* ."
+               git branch: mydatas.branch, url: mydatas.giturl.${servicename}
+               appdata = readYaml file: envname+".yml"
+			   sh "cp -R /opt/Jenkins/code/${servicename}/* ."
    
               }
 			}  
@@ -121,7 +122,7 @@ stages
             echo "security scan"
         }
      }
-     stage("Docker build") 
+    /* stage("Docker build") 
        {
         when {expression{(pipelinetype != "build")}} 
         steps 
