@@ -134,7 +134,7 @@ stages
         {
            
 		   dir('service'){
-		   sh "sudo docker build -t '${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}' ."
+		   sh "docker build -t '${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}' ."
 		   }
         }
      }
@@ -144,8 +144,8 @@ stages
         steps 
         {
            
-		   sh "`sudo aws ecr get-login --registry-id ${mydatas.ecrrepo.nonprod} --region us-east-1`"
-		   sh "sudo docker push '${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}'"
+		   sh "`aws ecr get-login --registry-id ${mydatas.ecrrepo.nonprod} --region us-east-1`"
+		   sh "docker push '${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}'"
 		  
         }
      }
