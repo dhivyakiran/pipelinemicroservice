@@ -49,7 +49,7 @@ stages
 			script
               {
                deleteDir()
-               git branch: mydatas.branch, url: mydatas.giturl.cmsservice
+               git branch: mydatas.branch, url: mydatas.giturl.${servicename}
                appdata = readYaml file: envname+".yml"
 			   sh "cp -R /opt/Jenkins/code/${servicename}/* ."
    
@@ -150,8 +150,9 @@ stages
         steps 
         {
            
-		   /*sh "eval $(aws ecr get-login --registry-id 450343572378 --region us-east-1| sed 's|https://||')"*/
-		   sh "docker push '${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}'"
+		   sh '''aws ecr get-login --registry-id 450343572378 --region us-east-1 | xargs xargs
+				docker push "${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}"
+				docker rmi "${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}"'''
 		  
         }
      }
