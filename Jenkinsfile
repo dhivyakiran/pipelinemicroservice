@@ -77,7 +77,7 @@ stages
 		   }
         }
     }
-    stage("Unit Testcase") 
+   /* stage("Unit Testcase") 
     {
         when {expression{(pipelinetype != "deploy")}}
         steps 
@@ -96,7 +96,7 @@ stages
 			sh "npm run test:cov"
 			}
         }
-    }
+    }*/
     stage("SonarQube Code Analysis") 
     {
         when {expression{(pipelinetype != "deploy") && (mydatas.sonar == true)}}
