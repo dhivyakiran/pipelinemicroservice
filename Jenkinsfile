@@ -144,7 +144,7 @@ stages
         steps 
         {
            
-		   sh "eval $(aws ecr get-login --registry-id 450343572378 --region us-east-1| sed 's|https://||')"
+		   /*sh "eval $(aws ecr get-login --registry-id 450343572378 --region us-east-1| sed 's|https://||')"*/
 		   sh "docker push '${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}'"
 		  
         }
