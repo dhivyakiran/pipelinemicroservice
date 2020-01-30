@@ -72,7 +72,9 @@ stages
         when {expression{(pipelinetype != "deploy")}}
         steps 
         {
-           sh 'npm run lint'
+           dir('service'){
+		   sh 'npm run lint'
+		   }
         }
     }
     stage("Unit Testcase") 
@@ -80,7 +82,9 @@ stages
         when {expression{(pipelinetype != "deploy")}}
         steps 
         {
-             sh 'npm run test'
+            dir('service'){
+			 sh 'npm run test'
+			 }
         }
     }
     stage("Code Coverage") 
@@ -88,7 +92,9 @@ stages
         when {expression{(pipelinetype != "deploy")}}
         steps 
         {
-            echo "npm run test:cov"
+              dir('service'){
+			sh "npm run test:cov"
+			}
         }
     }
     stage("SonarQube Code Analysis") 
