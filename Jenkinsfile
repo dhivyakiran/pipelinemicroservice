@@ -8,7 +8,7 @@ pipeline
 {
 agent
 {
-   label "slave1"
+   label "${mydatas.agentname}"
 }
 environment 
 {
@@ -51,7 +51,7 @@ stages
                deleteDir()
                git branch: mydatas.branch, url: mydatas.giturl.cmsservice
                appdata = readYaml file: envname+".yml"
-			   sh "cp -R /home/jenkins/cms-micorservices/* ."
+			   sh "cp -R /opt/Jenkins/code/${servicename}/* ."
    
               }
 			}  
@@ -67,12 +67,12 @@ stages
 			}
         }
     }
-   /* stage("TS Linting") 
+    stage("TS Linting") 
     {
         when {expression{(pipelinetype != "deploy")}}
         steps 
         {
-            echo "Linting"
+           sh 'npm run lint'
         }
     }
     stage("Unit Testcase") 
@@ -80,7 +80,7 @@ stages
         when {expression{(pipelinetype != "deploy")}}
         steps 
         {
-            echo "Execute unit tests"
+             sh 'npm run test'
         }
     }
     stage("Code Coverage") 
@@ -88,9 +88,9 @@ stages
         when {expression{(pipelinetype != "deploy")}}
         steps 
         {
-            echo "code coverage"
+            echo "npm run test:cov"
         }
-    }*/
+    }
     stage("SonarQube Code Analysis") 
     {
         when {expression{(pipelinetype != "deploy") && (mydatas.sonar == true)}}
@@ -144,7 +144,7 @@ stages
         steps 
         {
            
-		   sh "`aws ecr get-login --registry-id ${mydatas.ecrrepo.nonprod} --region us-east-1`"
+		   sh "eval $(aws ecr get-login --registry-id 450343572378 --region us-east-1| sed 's|https://||')"
 		   sh "docker push '${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}'"
 		  
         }
