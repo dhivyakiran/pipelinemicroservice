@@ -134,7 +134,7 @@ stages
         {
            
 		   dir('service'){
-		   sh "sudo docker build -t '${mydatas.ecrrepo.non-prod}:${servicename}-${currentBuild.number}' ."
+		   sh "sudo docker build -t '${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}' ."
 		   }
         }
      }
