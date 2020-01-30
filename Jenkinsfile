@@ -93,26 +93,30 @@ stages
     }*/
     stage("SonarQube Code Analysis") 
     {
-        when {expression{(pipelinetype != "deploy")}}
+        when {expression{(pipelinetype != "deploy") && (mydatas.sonar == "true")}}
         steps 
 	     {
-           withSonarQubeEnv('sonarqube') 
+           dir('service'){
+		   withSonarQubeEnv('sonarqube') 
            { 
 		   
-             sh "cp sonar-${servicename}.properties sonar-project.properties"
+             sh "cp ../sonar-${servicename}.properties sonar-project.properties"
 			 sh "/opt/Jenkins/sonar-scanner-4.2.0.1873/bin/sonar-scanner"
 	        }
         }
+		}
      }
      stage("SonarQube Quality Gate") 
      {
-        when {expression{(pipelinetype != "deploy")}}
+        when {expression{(pipelinetype != "deploy") && (mydatas.sonar == "true")}}
         steps 
         {
-            timeout(time: 10, unit: 'MINUTES') 
+			dir('service'){
+            timeout(time: 30, unit: 'SECONDS') 
             {
                waitForQualityGate abortPipeline: true
             }
+			}
         }
      }
      stage("Security scan") 
