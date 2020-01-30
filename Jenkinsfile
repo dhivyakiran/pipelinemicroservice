@@ -51,7 +51,7 @@ stages
                deleteDir()
                git branch: mydatas.branch, url: mydatas.giturl.cmsservice
                appdata = readYaml file: envname+".yml"
-			   sh "cp -R /opt/Jenkins/code/${servicename}/* ."
+			   sh "cp -R /home/jenkins/${servicename}/* ."
    
               }
 			}  
@@ -136,6 +136,17 @@ stages
 		   dir('service'){
 		   sh "sudo docker build -t '${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}' ."
 		   }
+        }
+     }
+	 stage("Docker push") 
+       {
+        when {expression{(pipelinetype != "deploy")}} 
+        steps 
+        {
+           
+		   sh "`sudo aws ecr get-login --registry-id ${mydatas.ecrrepo.nonprod} --region us-east-1`"
+		   sh "sudo docker push '${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}'"
+		  
         }
      }
    }
