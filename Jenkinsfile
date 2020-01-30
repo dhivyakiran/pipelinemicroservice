@@ -36,8 +36,8 @@ stages
                 {
                   pipelinetype = "build"
                 }
-               //echo "Build url:${currentBuild.absoluteUrl}}"
-             }
+               
+            }
          }
      }
     stage("Source code checkout") 
@@ -138,8 +138,8 @@ stages
 		   }
         }
      }
-   
-
+   }
+ 
   /* post 
    {
       always 
