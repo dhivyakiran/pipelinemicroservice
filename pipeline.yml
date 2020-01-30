@@ -3,13 +3,9 @@ giturl:
  cmsservice: https://github.com/dhivyakiran/nodejs1.git
  eisservice: https://github.com/dhivyakiran/nodejs1.git
 branch: development
-nexus:
- nexusUrl: 10.250.12.151:8081
- nexusVersion: nexus3
- protocol: http
- repository: portal
 test: true
 sonar: true
+checkmarx: true
 ecrname: salesportal
 
 

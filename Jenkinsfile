@@ -121,22 +121,25 @@ stages
      }
      stage("Security scan") 
      {
-        when {expression{(pipelinetype != "deploy")}}
+        when {expression{(pipelinetype != "deploy") && (mydatas.checkmarx == true)}}
         steps 
         {
             echo "security scan"
         }
      }
-    /* stage("Docker build") 
+     stage("Docker build") 
        {
-        when {expression{(pipelinetype != "build")}} 
+        when {expression{(pipelinetype != "deploy")}} 
         steps 
         {
-           sh 'docker build -t hellonodejs1:latest .'
+           
+		   dir('service'){
+		   sh "docker build -t '${mydatas.ecrname}:${servicename}-${currentBuild.number}' .'
+		   }
         }
      }
-   }*/
-}
+   
+
   /* post 
    {
       always 
