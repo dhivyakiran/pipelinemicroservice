@@ -132,7 +132,7 @@ stages
         {
             echo "security scan"
         }
-     }*/
+     }
      stage("Docker build") 
        {
         when {expression{(pipelinetype != "deploy")}} 
