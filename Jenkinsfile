@@ -96,7 +96,7 @@ stages
 			sh "npm run test:cov"
 			}
         }
-    }*/
+    }
     stage("SonarQube Code Analysis") 
     {
         when {expression{(pipelinetype != "deploy") && (mydatas.sonar == true)}}
@@ -132,7 +132,7 @@ stages
         {
             echo "security scan"
         }
-     }
+     }*/
      stage("Docker build") 
        {
         when {expression{(pipelinetype != "deploy")}} 
@@ -158,12 +158,12 @@ stages
      
    }
  
-   post 
+  /* post 
    {
       always 
       {
          emailext attachLog: true, body: "${currentBuild.result}: ${currentBuild.absoluteUrl}", compressLog: true, replyTo: 'dhivya.krish15@gmail.com', subject: "${currentBuild.result} pipeline: ${currentBuild.fullDisplayName}", to: 'dhivyakrish1491@gmail.com'
       }
-   }
+   }*/
 }
 
