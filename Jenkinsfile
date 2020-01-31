@@ -150,11 +150,8 @@ stages
         steps 
         {
            
-		   sh '''
-				aws ecr get-login --registry-id 450343572378 --region us-east-1 | xargs xargs
-		   		docker push "${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}"
-				docker rmi "${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}"
-			'''
+		   sh "aws ecr get-login --registry-id 450343572378 --region us-east-1 | xargs xargs"
+		   sh "docker push '${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}'"
 		  
         }
      }
