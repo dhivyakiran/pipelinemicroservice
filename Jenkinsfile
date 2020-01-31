@@ -144,7 +144,7 @@ stages
 		   }
         }
      }
-	 stage("Docker push") 
+	/* stage("Docker push") 
        {
         when {expression{(pipelinetype != "deploy")}} 
         steps 
@@ -154,7 +154,7 @@ stages
 		  /* sh "docker push '${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}'"*/
 		  
         }
-     }
+     }*/
    }
  
   /* post 
