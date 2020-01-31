@@ -49,7 +49,7 @@ stages
 			script
               {
                deleteDir()
-               git branch: mydatas.branch, url: mydatas.giturl.${servicename}
+               git branch: mydatas.branch, url: mydatas.giturl.cmsservice
                appdata = readYaml file: envname+".yml"
 			   sh "cp -R /opt/Jenkins/code/${servicename}/* ."
    
@@ -144,25 +144,26 @@ stages
 		   }
         }
      }
-	/* stage("Docker push") 
+	 stage("Docker push") 
        {
         when {expression{(pipelinetype != "deploy")}} 
         steps 
         {
            
-		  /* sh "aws ecr get-login --registry-id 450343572378 --region us-east-1 | xargs xargs"*/
-		  /* sh "docker push '${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}'"*/
+		   sh "aws ecr get-login --registry-id 450343572378 --region us-east-1 | xargs xargs"
+		   sh "docker push '${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}'"
 		  
         }
-     }*/
+		}
+     
    }
  
-  /* post 
+   post 
    {
       always 
       {
          emailext attachLog: true, body: "${currentBuild.result}: ${currentBuild.absoluteUrl}", compressLog: true, replyTo: 'dhivya.krish15@gmail.com', subject: "${currentBuild.result} pipeline: ${currentBuild.fullDisplayName}", to: 'dhivyakrish1491@gmail.com'
       }
-   }*/
+   }
 }
 
