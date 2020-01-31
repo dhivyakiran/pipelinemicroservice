@@ -77,7 +77,7 @@ stages
 		   }
         }
     }
-   /* stage("Unit Testcase") 
+    stage("Unit Testcase") 
     {
         when {expression{(pipelinetype != "deploy")}}
         steps 
@@ -150,8 +150,9 @@ stages
         steps 
         {
            
-		   sh "aws ecr get-login --registry-id 450343572378 --region us-east-1 | xargs xargs"
+		   sh "aws ecr get-login --registry-id '${mydatas.ecrregistry.nonprod}' --region '${mydatas.ecrregistry.nonprodregion}' | xargs xargs"
 		   sh "docker push '${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}'"
+		   sh "docker rmi '${mydatas.ecrrepo.nonprod}:${servicename}-${currentBuild.number}'"
 		  
         }
 		}

@@ -3,12 +3,13 @@ giturl:
  cmsservice: https://github.com/dhivyakiran/nodejs1.git
  eisservice: https://github.com/dhivyakiran/nodejs1.git
 branch: development
-test: true
-sonar: true
+test: false
+sonar: false
 checkmarx: true
 ecrregistry:
  nonprod: '450343572378'
- prod: '450343572378' 
+ prod: '450343572378'
+ nonprodregion: 'us-east-1' 
 ecrrepo:
  nonprod: 450343572378.dkr.ecr.us-east-1.amazonaws.com/salesportal-repo
  prod: 450343572378.dkr.ecr.us-east-1.amazonaws.com/salesportal-repo
