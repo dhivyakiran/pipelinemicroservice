@@ -1,4 +1,4 @@
-agentname: master
+agentname: 'slave1'
 giturl:
  cmsservice: https://github.com/dhivyakiran/nodejs1.git
  eisservice: https://github.com/dhivyakiran/nodejs1.git
