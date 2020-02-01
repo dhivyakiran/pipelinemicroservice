@@ -50,7 +50,10 @@ stages
               {
                deleteDir()
                git branch: mydatas.branch, url: mydatas.giturl.cmsservice
-               appdata = readYaml file: envname+".yml"
+			   if(envname != "dev")
+			   {
+					appdata = readYaml file: envname+".yml"
+				}
 			   sh "cp -R /opt/Jenkins/code/${servicename}/* ."
    
               }
