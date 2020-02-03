@@ -49,7 +49,7 @@ stages
 			script
               {
                deleteDir()
-               git branch: mydatas.branch, url: mydatas.giturl.cmsservice
+               git branch: mydatas.branch, url: mydatas.giturl.${servicename}
 			  
 					appdata = readYaml file: envname+".yml"
 				
